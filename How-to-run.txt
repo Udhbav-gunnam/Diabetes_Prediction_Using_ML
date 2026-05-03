@@ -1,0 +1,127 @@
+📁 HOW TO RUN - Diabetes Prediction Web App
+
+Follow these steps to run the project locally on your computer.
+
+────────────────────────────────────────
+🔧 PREREQUISITES
+────────────────────────────────────────
+
+✅ Python 3.8 or above  
+✅ pip (Python package installer)  
+✅ Git (for cloning the repo)  
+✅ Terminal with Bash support (e.g., Git Bash on Windows)
+
+────────────────────────────────────────
+📦 STEP 1: CLONE OR DOWNLOAD THE PROJECT
+────────────────────────────────────────
+
+Option 1: Using Git (recommended)
+---------------------------------
+git clone https://github.com/Eshwarpawanpeddi/Diabetes-Predicting-model-for-college-project.git
+cd Diabetes-Predicting-model-for-college-project
+
+Option 2: Download ZIP
+-----------------------
+- Go to: https://github.com/Eshwarpawanpeddi/Diabetes-Predicting-model-for-college-project
+- Click on "Code" > "Download ZIP"
+- Extract the ZIP file
+- Open the extracted folder in a compatible terminal
+
+────────────────────────────────────────
+📂 STEP 2: SET UP A VIRTUAL ENVIRONMENT (Optional)
+────────────────────────────────────────
+
+python -m venv venv
+source venv/bin/activate     (Linux/macOS)
+venv\Scripts\activate        (Windows CMD/PowerShell)
+
+────────────────────────────────────────
+📥 STEP 3: INSTALL REQUIRED PYTHON LIBRARIES
+────────────────────────────────────────
+
+pip install -r requirements.txt
+
+────────────────────────────────────────
+▶️ STEP 4: RUN THE APPLICATION
+────────────────────────────────────────
+
+You can run the app manually or using the provided `run.sh` script.
+
+🔹 Option A: Manual run
+-----------------------
+python app.py or flask run app.py
+
+🔹 Option B: Run using run.bat(windows) or run.sh(linux) script
+------------------------------------
+
+▶ Linux/macOS:
+--------------
+1. Open Terminal
+2. Grant permission (if needed):
+   chmod +x run.sh
+3. Run the script:
+   ./run.sh
+
+▶ Windows:(if directly running the file did not work)
+----------
+🛑 Important: You must use a terminal that supports Bash scripts, such as:
+   - Git Bash
+   - Windows Subsystem for Linux (WSL)
+
+1. Open Git Bash or WSL
+2. Navigate to the project folder:
+   cd path/to/project
+3. Run:
+   ./run.sh
+
+❗ Do NOT use regular Windows CMD or PowerShell to run `.sh` files.
+
+────────────────────────────────────────
+🌐 STEP 5: OPEN THE APP IN YOUR BROWSER
+────────────────────────────────────────
+
+Go to:
+
+http://localhost:5000/
+
+You will see the diabetes prediction input screen.
+
+────────────────────────────────────────
+✅ STEP 6: USE THE APP
+────────────────────────────────────────
+
+1. Fill in the input fields with patient data.
+2. Click on "Predict".
+3. The model will tell you if the person is likely to have diabetes.
+
+────────────────────────────────────────
+📌 TROUBLESHOOTING
+────────────────────────────────────────
+
+❌ pip not recognized?
+   → Try: python -m pip install -r requirements.txt
+
+❌ Flask module not found?
+   → Run: pip install flask
+
+❌ run.sh not working?
+   → Make sure you're using Git Bash (Windows) or Terminal (Linux/macOS)
+   → Use `python app.py` as a fallback
+
+────────────────────────────────────────
+📞 SUPPORT
+────────────────────────────────────────
+
+🎓 Project by:
+Bangalore Technological Institute  
+Department of Artificial Intelligence & Machine Learning  
+Mini Project – 5th Semester
+
+👨‍💻 Team:
+- Eshwar Pawan Peddi – 1BH22AI014  eshwarpawanpeddi@gmail.com
+- G Udhbav – 1BH22AI016  
+- Sabari Govindhan – 1BH22AI038  
+- Tejas Halemani – 1BH22AI054
+
+👩‍🏫 Guided by: Mrs. Dhivya C, Assistant Professor  
+👩‍🔬 HOD: Dr. G. Gayatri Tanuja

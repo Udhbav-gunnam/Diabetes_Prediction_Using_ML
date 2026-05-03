@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Diabetes Predictor</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+  <div class="screen active" id="inputScreen">
+    <h1>🩺 Diabetes Prediction</h1>
+    <form id="predictForm">
+      <div id="inputs"></div>
+      <button type="submit">🔮 Predict</button>
+    </form>
+  </div>
+
+  <div class="screen hidden" id="outputScreen">
+    <h1>📊 Prediction Result</h1>
+    <p id="predictionText"></p>
+    <canvas id="predictionChart" width="300" height="300"></canvas>
+    <br/>
+    <button onclick="goBack()" class="back-btn">🔁 Try Again</button>
+  </div>
+
+  <script>
+    const features = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age'];
+    const inputContainer = document.getElementById("inputs");
+
+    features.forEach(f => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <label>${f}</label>
+        <input type="range" id="${f}-range" value="0" max="200" step="1">
+        <input type="number" id="${f}-input" value="0" step="1">
+      `;
+      inputContainer.appendChild(div);
+
+      const range = div.querySelector(`#${f}-range`);
+      const input = div.querySelector(`#${f}-input`);
+      range.addEventListener("input", () => input.value = range.value);
+      input.addEventListener("input", () => range.value = input.value);
+    });
+
+    let chart;
+
+    document.getElementById("predictForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const data = {};
+      features.forEach(f => data[f] = parseFloat(document.getElementById(`${f}-input`).value));
+
+      const res = await fetch("http://localhost:5000/predict", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      document.getElementById("predictionText").textContent =
+        result.prediction === 1 ? "⚠️ Diabetic" : "✅ Not Diabetic";
+
+      if (result.probability && result.probability.length === 2) {
+        const ctx = document.getElementById("predictionChart").getContext("2d");
+        if (chart) {
+          chart.data.datasets[0].data = [result.probability[0], result.probability[1]];
+          chart.update();
+        } else {
+          chart = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+              labels: ["Not Diabetic", "Diabetic"],
+              datasets: [{
+                data: [result.probability[0], result.probability[1]],
+                backgroundColor: ["#00ff88", "#ff3b3b"]
+              }]
+            }
+          });
+        }
+      }
+
+      document.getElementById("inputScreen").classList.remove("active");
+      document.getElementById("inputScreen").classList.add("hidden");
+      document.getElementById("outputScreen").classList.remove("hidden");
+      document.getElementById("outputScreen").classList.add("active");
+    });
+
+    function goBack() {
+      document.getElementById("outputScreen").classList.remove("active");
+      document.getElementById("outputScreen").classList.add("hidden");
+      document.getElementById("inputScreen").classList.remove("hidden");
+      document.getElementById("inputScreen").classList.add("active");
+    }
+  </script>
+</body>
+</html>
+
