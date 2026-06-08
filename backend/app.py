@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import numpy as np
 import pickle
+from tensorflow.keras.models import load_model
 
 app = Flask(__name__)
 CORS(app)
@@ -9,12 +10,11 @@ CORS(app)
 FEATURE_ORDER = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness',
                  'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
 
-with open("diabetes_model.pkl", "rb") as f:
-    model = pickle.load(f)
+model = load_model("diabetes_model.keras")
 
 @app.route("/")
 def home():
-    return jsonify({"status": "Backend is running"})
+    return render_template("index.html")
 
 @app.route("/predict", methods=["POST"])
 def predict():
